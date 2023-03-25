@@ -17,6 +17,7 @@
 
 # misc
 .DS_Store
+.tsconfig.json
 
 # debug
 npm-debug.log*
