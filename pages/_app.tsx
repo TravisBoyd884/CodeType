@@ -1,11 +1,3 @@
-
-// import '../styles/globals.css'
-
-// export default function _app({ Component, pageProps }) {
-//   return (
-//     <Component {...pageProps} />
-//   )
-// }
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
@@ -24,7 +16,6 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
           colorScheme: 'light',
         }}
       >

@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/appstyles.module.scss'
 import BlinkingCursor from './BlinkingCursor'
-import Timer from './Timer'
 import { textArray } from '../misc/textArray'
-// import SplitButton from './SplitBotton'
-// import { text } from 'stream/consumers'
-
+import CountDownTimer from './CountDownTimer'
 
 export default function App() {
   const [colorIndex, setColorIndex] = useState(0);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
+  const [startTimer, setstartTimer] = useState(false);
   const [textArrayIndex, setTextArrayIndex] = useState(0);
   const typableText = textArray[textArrayIndex]
-
-  const setColorAndCursor = (i, x) => {
-    setColorIndex((colorIndex + i) % typableText.length);
-    setCursorPosX(cursorPosX + x);
-  }
-
-  let canEnter = false;
-  const characterToType = typableText.charAt(colorIndex + 1);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -29,14 +19,25 @@ export default function App() {
     };
   });
 
+  const setColorAndCursor = (i: number, x: number) => {
+    setColorIndex((colorIndex + i) % typableText.length);
+    setCursorPosX(cursorPosX + x);
+  }
+  let canEnter = false;
+
+  const characterToType = typableText.charAt(colorIndex + 1);
+
   const handleKeyDown = (event) => {
 
     if (characterToType === '~') {
       canEnter = true;
     }
+
     switch (event.key) {
       case characterToType:
         setColorAndCursor(1, 14.5);
+        setstartTimer(true);
+        console.log("startTimer: " + startTimer);
       case " ":
         event.preventDefault();
         break;
@@ -78,6 +79,8 @@ export default function App() {
     ));
   };
 
+  const textToRender = renderText().slice(sliceIndex)
+
   const changeText = () => {
     if (textArrayIndex < textArray.length - 1) {
       setTextArrayIndex(textArrayIndex + 1);
@@ -87,69 +90,32 @@ export default function App() {
     setsliceIndex(0);
     setColorIndex(0);
     setCursorPosX(0);
+    setstartTimer(false);
   }
 
-  const textToRender = renderText().slice(sliceIndex)
-
-  // let line = 0;
-  // while (line != 6) {
-  //   for (let i = sliceIndex; i < typableText.length; i++) {
-  //     if (typableText.charAt(i) == '~') {
-  //       line++;
-  //     }
-  //   }
-  // }
-  // let line = 0;
-  // while (line != 6) {
-  //   for (let i = sliceIndex; i < typableText.length; i++) {
-  //     if (typableText.charAt(i) == '~') {
-  //       line++;
-  //     }
-  //   }
-  // }
-  // let line = 0;
-  // while (line != 6) {
-  //   for (let i = sliceIndex; i < typableText.length; i++) {
-  //     if (typableText.charAt(i) == '~') {
-  //       line++;
-  //     }
-  //   }
-  // }
-  // let line = 0;
-  // while (line != 6) {
-  //   for (let i = sliceIndex; i < typableText.length; i++) {
-  //     if (typableText.charAt(i) == '~') {
-  //       line++;
-  //     }
-  //   }
-  // }
-
-  let tellTimerToStop = typableText.length - colorIndex === 1;
-
-  useEffect(() => {
+  function CallBack() {
     changeText();
-  }, [tellTimerToStop])
+  }
 
   const timerProps = {
-    stopTimer: tellTimerToStop,
-    textLength: typableText.length,
-    currentCharIndex: colorIndex
+    timeLimit: 30,
+    start: startTimer,
+    numCharsTyped: colorIndex,
+    handleCallBack: CallBack,
   }
 
   return (
     <>
-      <button onClick={changeText}>next</button >
-      <Timer {...timerProps} />
-      <div className={styles.textbox}>
-        <span>
-          <pre className={styles.code}>
-            <code>
-              <BlinkingCursor cursorposx={cursorPosX} />
-              {textToRender}
-            </code>
-          </pre>
-        </span>
-      </div>
+      <CountDownTimer {...timerProps} />
+      <button className={styles.changetext} onClick={changeText}>ChangeText</button >
+      <span>
+        <pre className={styles.code}>
+          <code>
+            <BlinkingCursor cursorposx={cursorPosX} />
+            {textToRender}
+          </code>
+        </pre>
+      </span>
     </>
   )
 }

@@ -1,21 +1,23 @@
-.textbox {
-    height: 20em;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    margin-Top: 10vh; 
-    overflow: hidden;
-}
 
 .code {
   position: relative;
+  height: 14em;
   width: fit-content;
   font-size: 1.5rem;
   margin: 0 auto;
   top: 2.3em;
-  word-wrap: break-word;
+  overflow: hidden;
 }
 
-.test{
-  color:red;
+.changetext {
+  position: absolute;
+  top: 20em;
+  left: 20vw;
+  width: fit-content;
+}
+
+@media screen and (max-width: 1000px) {
+  .changetext {
+    left: 0;
+  }
 }
