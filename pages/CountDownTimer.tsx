@@ -6,14 +6,26 @@ interface MyComponentProps {
   timeLimit: number;
   start: boolean;
   numCharsTyped: number;
-  handleCallBack;
+  handleCallBack: any;
 }
 
 export default function CountDownTimer(props: MyComponentProps) {
   const [active, setActive] = useState(props.start);
-  const [time, setTime] = useState(props.timeLimit);
   const [wpm, setwpm] = useState(0);
   const [prevwpm, setprevwpm] = useState(0);
+  const [time, setTime] = useState(props.timeLimit);
+
+  const stoppedTyping = () => {
+    setTime(props.timeLimit);
+    setprevwpm(wpm);
+    setwpm(0);
+    props.handleCallBack()
+  }
+
+  useEffect(() => {
+    setTime(props.timeLimit)
+    stoppedTyping();
+  }, [props.timeLimit])
 
   useEffect(() => {
     setActive(props.start)
@@ -24,7 +36,7 @@ export default function CountDownTimer(props: MyComponentProps) {
   }
 
   useEffect(() => {
-    let interval;
+    let interval: any;
     if (active) {
       interval = setInterval(() => {
         setTime(time => time - 1);
@@ -36,10 +48,7 @@ export default function CountDownTimer(props: MyComponentProps) {
 
   useEffect(() => {
     if (time === 0) {
-      setTime(props.timeLimit);
-      setprevwpm(wpm);
-      setwpm(0);
-      props.handleCallBack()
+      stoppedTyping();
     }
     if (props.numCharsTyped != 0 && time != 0) {
       let rawWpm = ((props.numCharsTyped / 5) * 60) / ((props.timeLimit - time) % 60);
@@ -49,7 +58,7 @@ export default function CountDownTimer(props: MyComponentProps) {
 
   return (
     <div className={styles.timer}>
-      <h1>WPM: {time === 0 ? wpm : prevwpm}</h1>
+      <h1>WPM: {time === props.timeLimit ? prevwpm : wpm}</h1>
       <h1>Time: {time}s</h1>
     </div>
   )
