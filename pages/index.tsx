@@ -130,6 +130,7 @@ export default function Home() {
       <CountDownTimer {...timerProps} />
       <Button className={styles.changetext} onClick={changeText}>ChangeText</Button>
       <pre className={styles.code}>
+        <input type="hidden" name="openIphoneKeyboard" />
         <code>
           {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
           {textToRender}
