@@ -1,7 +1,8 @@
 
 .code {
   position: relative;
-  height: 14em;
+  /* height: 14em; */
+  height: 17em;
   width: fit-content;
   font-size: 1.5rem;
   margin: 0 auto;
@@ -10,7 +11,7 @@
 
 .changetext {
   position: absolute;
-  top: 20em;
+  top: 24em;
   left: 20vw;
   width: fit-content;
 }
@@ -32,4 +33,12 @@
 .navbtn {
   height: 5rem;
   width: 6rem;
+  border: none;
+}
+
+.activenavbtn {
+  height: 5rem;
+  width: 6rem;
+  border: none;
+  background: #C1C2C5;
 }

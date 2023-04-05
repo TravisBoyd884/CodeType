@@ -7,6 +7,7 @@ interface MyComponentProps {
   start: boolean;
   numCharsTyped: number;
   handleCallBack: any;
+  finished: boolean;
 }
 
 export default function CountDownTimer(props: MyComponentProps) {
@@ -24,7 +25,9 @@ export default function CountDownTimer(props: MyComponentProps) {
 
   useEffect(() => {
     setTime(props.timeLimit)
-    stoppedTyping();
+    if (props.numCharsTyped != 0) {
+      stoppedTyping();
+    }
   }, [props.timeLimit])
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function CountDownTimer(props: MyComponentProps) {
   }, [active]);
 
   useEffect(() => {
-    if (time === 0) {
+    if (time === 0 || props.finished) {
       stoppedTyping();
     }
     if (props.numCharsTyped != 0 && time != 0) {

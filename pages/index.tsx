@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { Button } from '@mantine/core';
 import styles from '../styles/appstyles.module.scss'
 import BlinkingCursor from './BlinkingCursor'
 import { textArray } from '../misc/textArray'
 import CountDownTimer from './CountDownTimer'
 
 export default function Home() {
+  const [btnActive, setbtnActive] = useState(30);
   const [colorIndex, setColorIndex] = useState(0);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
@@ -81,6 +83,7 @@ export default function Home() {
 
   const textToRender = renderText().slice(sliceIndex)
 
+
   const changeText = () => {
     if (textArrayIndex < textArray.length - 1) {
       setTextArrayIndex(textArrayIndex + 1);
@@ -103,25 +106,29 @@ export default function Home() {
     start: startTimer,
     numCharsTyped: colorIndex,
     handleCallBack: CallBack,
+    finished: colorIndex === typableText.length - 3 ? true : false,
   }
 
   const changeTime = (newtime: number) => {
     settime(newtime);
-    console.log(newtime);
+    setbtnActive(newtime);
     return null;
   }
 
+  const changeButtonStyles = (newtime: number) => {
+    return btnActive === newtime ? styles.activenavbtn : styles.navbtn
+  }
 
   return (
     <>
       <div className={styles.nav}>
-        <button className={styles.navbtn} onClick={() => changeTime(15)}>15</button>
-        <button className={styles.navbtn} onClick={() => changeTime(30)}>30</button>
-        <button className={styles.navbtn} onClick={() => changeTime(60)}>60</button>
-        <button className={styles.navbtn} onClick={() => changeTime(120)}>120</button>
+        <button className={changeButtonStyles(15)} onClick={() => changeTime(15)}>15</button>
+        <button className={changeButtonStyles(30)} onClick={() => changeTime(30)}>30</button>
+        <button className={changeButtonStyles(60)} onClick={() => changeTime(60)}>60</button>
+        <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
       </div>
       <CountDownTimer {...timerProps} />
-      <button className={styles.changetext} onClick={changeText}>ChangeText</button >
+      <Button className={styles.changetext} onClick={changeText}>ChangeText</Button>
       <pre className={styles.code}>
         <code>
           <BlinkingCursor cursorposx={cursorPosX} />
