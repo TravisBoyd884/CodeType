@@ -17,7 +17,8 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     <>
       <Head>
         <title>Code Type</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        {/* <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" /> */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Head>
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
@@ -28,6 +29,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
             colorScheme: colorScheme,
           }}
         >
+          <input autoFocus id="openkeyboard" type="hidden" name="openIphoneKeyboard" />
           <SegmentedToggle toggleColorScheme={toggleColorScheme} />
           <Component {...pageProps} />
         </MantineProvider>
