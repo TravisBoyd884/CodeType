@@ -131,7 +131,7 @@ export default function Home() {
       <Button className={styles.changetext} onClick={changeText}>ChangeText</Button>
       <pre className={styles.code}>
         <code>
-          <BlinkingCursor cursorposx={cursorPosX} />
+          {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
           {textToRender}
         </code>
       </pre>
