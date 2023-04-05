@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Button } from '@mantine/core';
 import styles from '../styles/appstyles.module.scss'
-import BlinkingCursor from './BlinkingCursor'
+// import BlinkingCursor from './BlinkingCursor'
 import { textArray } from '../misc/textArray'
 import CountDownTimer from './CountDownTimer'
 
@@ -14,6 +14,7 @@ export default function Home() {
   const [textArrayIndex, setTextArrayIndex] = useState(0);
   const [time, settime] = useState(30);
   const typableText = textArray[textArrayIndex]
+  const inputRef = useRef(null);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -83,7 +84,6 @@ export default function Home() {
 
   const textToRender = renderText().slice(sliceIndex)
 
-
   const changeText = () => {
     if (textArrayIndex < textArray.length - 1) {
       setTextArrayIndex(textArrayIndex + 1);
@@ -119,8 +119,13 @@ export default function Home() {
     return btnActive === newtime ? styles.activenavbtn : styles.navbtn
   }
 
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
   return (
-    <>
+    <div onClick={handleClick}>
+      <input type="text" ref={inputRef} readOnly style={{ backgroundColor: 'transparent', border: 'none', outline: 'none' }} />
       <div className={styles.nav}>
         <button className={changeButtonStyles(15)} onClick={() => changeTime(15)}>15</button>
         <button className={changeButtonStyles(30)} onClick={() => changeTime(30)}>30</button>
@@ -131,10 +136,11 @@ export default function Home() {
       <Button className={styles.changetext} onClick={changeText}>ChangeText</Button>
       <pre className={styles.code}>
         <code>
-          {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
           {textToRender}
+          {/* <input value={{ textToRender }} readOnly type="text" ref={inputRef} style={{ backgroundColor: 'transparent', opacity: '1', width: '100%', height: '100%', border: 'none' }} /> */}
+          {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
         </code>
       </pre >
-    </>
+    </div>
   )
 }

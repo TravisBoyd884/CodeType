@@ -29,7 +29,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
             colorScheme: colorScheme,
           }}
         >
-          <input autoFocus id="openkeyboard" type="hidden" name="openIphoneKeyboard" />
           <SegmentedToggle toggleColorScheme={toggleColorScheme} />
           <Component {...pageProps} />
         </MantineProvider>
