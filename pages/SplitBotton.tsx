@@ -1,5 +1,5 @@
 import { createStyles, Button, Menu, Group, ActionIcon, rem } from '@mantine/core';
-// import { IconTrash, IconBookmark, IconCalendar, IconChevronDown } from '@tabler/icons-react';
+import { IconBrandJavascript, IconLetterJ, IconBrandCpp, IconChevronDown } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -16,13 +16,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function SplitButton() {
+export default function SplitButton(props: { handleClick: any }) {
   const { classes, theme } = useStyles();
   const menuIconColor = theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 5 : 6];
 
   return (
     <Group noWrap spacing={0}>
-      <Button className={classes.button}>Send</Button>
+      <Button className={classes.button} onClick={() => props.handleClick()}>Change Text</Button>
       <Menu transitionProps={{ transition: 'pop' }} position="bottom-end" withinPortal>
         <Menu.Target>
           <ActionIcon
@@ -31,19 +31,19 @@ export default function SplitButton() {
             size={36}
             className={classes.menuControl}
           >
-            {/* <IconChevronDown size="1rem" stroke={1.5} /> */}
+            <IconChevronDown size="1rem" stroke={1.5} />
           </ActionIcon>
         </Menu.Target>
         <Menu.Dropdown>
-          {/* <Menu.Item icon={<IconCalendar size="1rem" stroke={1.5} color={menuIconColor} />}> */}
-          {/*   Schedule for later */}
-          {/* {/* </Menu.Item> */}
-          {/* <Menu.Item icon={<IconBookmark size="1rem" stroke={1.5} color={menuIconColor} />}> */}
-          {/*   Save draft */}
-          {/* </Menu.Item> */}
-          {/* <Menu.Item icon={<IconTrash size="1rem" stroke={1.5} color={menuIconColor} />}> */}
-          {/*   Delete */}
-          {/* </Menu.Item> */}
+          <Menu.Item icon={<IconBrandJavascript size="1rem" stroke={1.5} color={menuIconColor} />}>
+            JavaScript
+          </Menu.Item>
+          <Menu.Item icon={<IconLetterJ size="1rem" stroke={1.5} color={menuIconColor} />}>
+            Java
+          </Menu.Item>
+          <Menu.Item icon={<IconBrandCpp size="1rem" stroke={1.5} color={menuIconColor} />}>
+            C/C++
+          </Menu.Item>
         </Menu.Dropdown>
       </Menu>
     </Group>

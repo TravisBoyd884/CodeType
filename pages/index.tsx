@@ -5,16 +5,17 @@ import styles from '../styles/appstyles.module.scss'
 import { textArray } from '../misc/textArray'
 import CountDownTimer from './CountDownTimer'
 
-export default function Home() {
+export default function Home(props: { activeChangeText: boolean }) {
   const [btnActive, setbtnActive] = useState(30);
   const [colorIndex, setColorIndex] = useState(0);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
   const [startTimer, setstartTimer] = useState(false);
   const [textArrayIndex, setTextArrayIndex] = useState(0);
+  // const [activateChangeText, setactivateChangeText] = useState(props.activeChangeText);
   const [time, settime] = useState(30);
   const typableText = textArray[textArrayIndex]
-  const inputRef = useRef(null);
+
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -97,6 +98,10 @@ export default function Home() {
     setstartTimer(false);
   }
 
+  useEffect(() => {
+    changeText();
+  }, [props.activeChangeText])
+
   function CallBack() {
     changeText();
   }
@@ -119,13 +124,8 @@ export default function Home() {
     return btnActive === newtime ? styles.activenavbtn : styles.navbtn
   }
 
-  function handleClick() {
-    inputRef.current.focus();
-  }
-
   return (
-    <div onClick={handleClick}>
-      <input type="text" ref={inputRef} style={{ backgroundColor: 'transparent', /* border: 'none', outline: 'none'  */ }} />
+    <div>
       <div className={styles.nav}>
         <button className={changeButtonStyles(15)} onClick={() => changeTime(15)}>15</button>
         <button className={changeButtonStyles(30)} onClick={() => changeTime(30)}>30</button>
@@ -133,7 +133,7 @@ export default function Home() {
         <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
       </div>
       <CountDownTimer {...timerProps} />
-      <Button className={styles.changetext} onClick={changeText}>ChangeText</Button>
+      {/* <Button className={styles.changetext} onClick={changeText}>ChangeText</Button> */}
       <pre className={styles.code}>
         <code>
           {textToRender}
