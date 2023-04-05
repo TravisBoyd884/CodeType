@@ -125,7 +125,7 @@ export default function Home() {
 
   return (
     <div onClick={handleClick}>
-      <input type="text" ref={inputRef} readOnly style={{ backgroundColor: 'transparent', border: 'none', outline: 'none' }} />
+      <input type="text" ref={inputRef} style={{ backgroundColor: 'transparent', /* border: 'none', outline: 'none'  */ }} />
       <div className={styles.nav}>
         <button className={changeButtonStyles(15)} onClick={() => changeTime(15)}>15</button>
         <button className={changeButtonStyles(30)} onClick={() => changeTime(30)}>30</button>
