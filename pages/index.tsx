@@ -132,6 +132,7 @@ export default function Home(props: { activeChangeText: boolean }) {
         <button className={changeButtonStyles(60)} onClick={() => changeTime(60)}>60</button>
         <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
       </div>
+      <input autoFocus />
       <CountDownTimer {...timerProps} />
       {/* <Button className={styles.changetext} onClick={changeText}>ChangeText</Button> */}
       <pre className={styles.code}>
