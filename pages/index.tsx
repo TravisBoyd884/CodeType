@@ -139,7 +139,7 @@ export default function Home(props: { activeChangeText: boolean }) {
         <code>
           {/* <textarea defaultValue={typableText} style={{ height: '50vh', width: '50vw' }}> */}
           {/* </textarea> */}
-          <input style={{ position: 'absolute', height: '100%', width: '100%', background: 'transparent', color: 'transparent', border: 'none' }} />
+          <input value={''} style={{ position: 'absolute', height: '100%', width: '100%', background: 'transparent', color: 'transparent', border: 'none' }} />
           {textToRender}
           {/* <input value={{ textToRender }} readOnly type="text" ref={inputRef} style={{ backgroundColor: 'transparent', opacity: '1', width: '100%', height: '100%', border: 'none' }} /> */}
           {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
