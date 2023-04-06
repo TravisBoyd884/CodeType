@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Button } from '@mantine/core';
 import styles from '../styles/appstyles.module.scss'
 // import BlinkingCursor from './BlinkingCursor'
 import { textArray } from '../misc/textArray'
@@ -38,12 +37,14 @@ export default function Home(props: { activeChangeText: boolean }) {
       canEnter = true;
     }
 
+    console.log(event.key)
+
     switch (event.key) {
       case characterToType:
         setColorAndCursor(1, 14.45);
         setstartTimer(true);
       case " ":
-        event.preventDefault();
+        // event.preventDefault();
         break;
       case "Tab":
         if (characterToType === ' ' && typableText.charAt(colorIndex + 2) == ' ')
@@ -55,7 +56,7 @@ export default function Home(props: { activeChangeText: boolean }) {
           setColorAndCursor(2, -cursorPosX);
           setsliceIndex(colorIndex + 1);
         }
-        event.preventDefault();
+        // event.preventDefault();
         canEnter = false;
         break;
       case "Backspace":
@@ -132,11 +133,13 @@ export default function Home(props: { activeChangeText: boolean }) {
         <button className={changeButtonStyles(60)} onClick={() => changeTime(60)}>60</button>
         <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
       </div>
-      <input autoFocus />
       <CountDownTimer {...timerProps} />
       {/* <Button className={styles.changetext} onClick={changeText}>ChangeText</Button> */}
       <pre className={styles.code}>
         <code>
+          {/* <textarea defaultValue={typableText} style={{ height: '50vh', width: '50vw' }}> */}
+          {/* </textarea> */}
+          <input style={{ position: 'absolute', height: '100%', width: '100%', background: 'transparent', color: 'transparent', border: 'none' }} />
           {textToRender}
           {/* <input value={{ textToRender }} readOnly type="text" ref={inputRef} style={{ backgroundColor: 'transparent', opacity: '1', width: '100%', height: '100%', border: 'none' }} /> */}
           {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
