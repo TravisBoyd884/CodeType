@@ -38,14 +38,14 @@ export default function Home(props: { activeChangeText: boolean }) {
 
     switch (event.key) {
       case characterToType:
-        setColorAndCursor(1, 14.45);
+        setColorAndCursor(1, 14.4);
         setstartTimer(true);
       case " ":
         event.preventDefault();
         break;
       case "Tab":
         if (characterToType === ' ' && typableText.charAt(colorIndex + 1) == ' ')
-          setColorAndCursor(2, 28.9);
+          setColorAndCursor(2, 28.8);
         event.preventDefault();
         break;
       case "Enter":
@@ -57,12 +57,12 @@ export default function Home(props: { activeChangeText: boolean }) {
         canEnter = false;
         break;
       case "Backspace":
-        setColorAndCursor(-1, -14.45);
+        setColorAndCursor(-1, -14.4);
         break;
       case "'":
         event.preventDefault();
         if (event.key === characterToType) {
-          setColorAndCursor(1, 14.45);
+          setColorAndCursor(1, 14.4);
         }
         break;
       case "/":
@@ -124,8 +124,6 @@ export default function Home(props: { activeChangeText: boolean }) {
     return btnActive === newtime ? styles.activenavbtn : styles.navbtn
   }
 
-  const makeCaretDisappear = '                                                                                                                                 '
-
   return (
     <div>
       <div className={styles.nav}>
@@ -139,7 +137,7 @@ export default function Home(props: { activeChangeText: boolean }) {
         <pre>
           <code>
             <BlinkingCursor cursorposx={cursorPosX} />
-            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={makeCaretDisappear} style={{
+            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
               position: 'absolute',
               height: '100%',
               width: '100%',
@@ -147,7 +145,8 @@ export default function Home(props: { activeChangeText: boolean }) {
               color: 'transparent',
               border: 'none',
               outline: 'none',
-              WebkitUserSelect: 'none'
+              WebkitUserSelect: 'none',
+              caretColor: 'transparent'
             }} />
             {textToRender}
           </code>
