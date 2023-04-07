@@ -15,17 +15,21 @@ export default function BlinkingCursor(props: ThisComponenetsProps) {
   // useEffect(() => {
   //   console.log(props.cursorposx.toString() + 'ch');
   // }, [props.cursorposx]);
+  let cursorPosition = '0ch';
+  if (props.cursorposx && cursorPosition != undefined && cursorPosition != null) {
+    cursorPosition = props.cursorposx.toString() + 'ch';
+  }
 
 
   return (
     <>
       <span style={{
         position: 'absolute',
-        marginLeft: props.cursorposx ? '0' : props.cursorposx.toString() + 'ch',
+        marginLeft: cursorPosition,
         borderLeft: '2px solid',
         borderColor: colorScheme === 'light' ? 'black' : 'white',
         height: '1.5em',
-      }}></span>
+      }}></span >
     </>
   );
 };
