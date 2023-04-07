@@ -124,6 +124,8 @@ export default function Home(props: { activeChangeText: boolean }) {
     return btnActive === newtime ? styles.activenavbtn : styles.navbtn
   }
 
+  const makeCaretDisappear = '                                                                                                                                 '
+
   return (
     <div>
       <div className={styles.nav}>
@@ -137,7 +139,7 @@ export default function Home(props: { activeChangeText: boolean }) {
         <pre>
           <code>
             <BlinkingCursor cursorposx={cursorPosX} />
-            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
+            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={makeCaretDisappear} style={{
               position: 'absolute',
               height: '100%',
               width: '100%',
@@ -150,7 +152,6 @@ export default function Home(props: { activeChangeText: boolean }) {
             {textToRender}
           </code>
         </pre >
-
       </div>
     </div>
   )
