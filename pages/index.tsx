@@ -134,7 +134,7 @@ export default function Home(props: { activeChangeText: boolean }) {
       </div>
       <CountDownTimer {...timerProps} />
       <div className={styles.code}>
-        <pre style={{ padding: '0', border: 'red', borderStyle: 'solid' }}>
+        <pre>
           <code>
             <BlinkingCursor cursorposx={cursorPosX} />
             <input autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
@@ -143,7 +143,9 @@ export default function Home(props: { activeChangeText: boolean }) {
               width: '100%',
               background: 'transparent',
               color: 'transparent',
-              border: 'none'
+              border: 'none',
+              outline: 'none',
+              WebkitUserSelect: 'none'
             }} />
             {textToRender}
           </code>
