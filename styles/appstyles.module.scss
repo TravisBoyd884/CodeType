@@ -6,6 +6,7 @@
   font-size: 1.5rem;
   margin: 0 auto;
   overflow: hidden;
+  padding: 0;
 }
 
 .changetext {
@@ -40,4 +41,13 @@
   width: 6rem;
   border: none;
   background: #C1C2C5;
+}
+
+.invisibleinput {
+  position: 'absolute'; 
+  height: '100%';
+  width: '100%';
+  background: 'transparent';
+  color: 'transparent'; 
+  border: 'none'
 }

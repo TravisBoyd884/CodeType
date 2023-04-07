@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from '../styles/appstyles.module.scss'
-// import BlinkingCursor from './BlinkingCursor'
+import BlinkingCursor from './BlinkingCursor'
 import { textArray } from '../misc/textArray'
 import CountDownTimer from './CountDownTimer'
 
 export default function Home(props: { activeChangeText: boolean }) {
   const [btnActive, setbtnActive] = useState(30);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [colorIndex, setColorIndex] = useState(-1);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
   const [startTimer, setstartTimer] = useState(false);
@@ -14,7 +14,6 @@ export default function Home(props: { activeChangeText: boolean }) {
   // const [activateChangeText, setactivateChangeText] = useState(props.activeChangeText);
   const [time, settime] = useState(30);
   const typableText = textArray[textArrayIndex]
-
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -29,7 +28,7 @@ export default function Home(props: { activeChangeText: boolean }) {
   }
   let canEnter = false;
 
-  const characterToType = typableText.charAt(colorIndex + 1);
+  const characterToType = typableText.charAt(colorIndex);
 
   const handleKeyDown = (event: any) => {
 
@@ -37,26 +36,24 @@ export default function Home(props: { activeChangeText: boolean }) {
       canEnter = true;
     }
 
-    console.log(event.key)
-
     switch (event.key) {
       case characterToType:
         setColorAndCursor(1, 14.45);
         setstartTimer(true);
       case " ":
-        // event.preventDefault();
+        event.preventDefault();
         break;
       case "Tab":
-        if (characterToType === ' ' && typableText.charAt(colorIndex + 2) == ' ')
+        if (characterToType === ' ' && typableText.charAt(colorIndex + 1) == ' ')
           setColorAndCursor(2, 28.9);
         event.preventDefault();
         break;
       case "Enter":
         if (canEnter) {
           setColorAndCursor(2, -cursorPosX);
-          setsliceIndex(colorIndex + 1);
+          setsliceIndex(colorIndex + 2);
         }
-        // event.preventDefault();
+        event.preventDefault();
         canEnter = false;
         break;
       case "Backspace":
@@ -78,8 +75,10 @@ export default function Home(props: { activeChangeText: boolean }) {
 
   const renderText = () => {
     return typableText.split('').map((char, index) => (
-      <span key={index} style={{ color: index <= colorIndex ? 'red' : '#1c82adc4' }}>
+      <span key={index} style={{ color: index + 1 <= colorIndex ? 'red' : '#1c82adc4' }}>
         {'~' === char ? '' : char}
+        {/* {index + 1} */}
+        {/* {colorIndex} */}
       </span>
     ));
   };
@@ -134,17 +133,23 @@ export default function Home(props: { activeChangeText: boolean }) {
         <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
       </div>
       <CountDownTimer {...timerProps} />
-      {/* <Button className={styles.changetext} onClick={changeText}>ChangeText</Button> */}
-      <pre className={styles.code}>
-        <code>
-          {/* <textarea defaultValue={typableText} style={{ height: '50vh', width: '50vw' }}> */}
-          {/* </textarea> */}
-          <input value={''} style={{ position: 'absolute', height: '100%', width: '100%', background: 'transparent', color: 'transparent', border: 'none' }} />
-          {textToRender}
-          {/* <input value={{ textToRender }} readOnly type="text" ref={inputRef} style={{ backgroundColor: 'transparent', opacity: '1', width: '100%', height: '100%', border: 'none' }} /> */}
-          {/* <BlinkingCursor cursorposx={cursorPosX} /> */}
-        </code>
-      </pre >
+      <div className={styles.code}>
+        <pre style={{ padding: '0', border: 'red', borderStyle: 'solid' }}>
+          <code>
+            <BlinkingCursor cursorposx={cursorPosX} />
+            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              background: 'transparent',
+              color: 'transparent',
+              border: 'none'
+            }} />
+            {textToRender}
+          </code>
+        </pre >
+
+      </div>
     </div>
   )
 }
