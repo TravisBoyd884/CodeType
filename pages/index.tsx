@@ -1,17 +1,47 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from '../styles/appstyles.module.scss'
 import BlinkingCursor from './BlinkingCursor'
-import { textArray } from '../misc/textArray'
+import { javaScriptTextArray } from '../misc/javaScriptText'
+import { javaTextArray } from '../misc/javaText'
+import { cppTextArray } from '../misc/cppText'
 import CountDownTimer from './CountDownTimer'
 
-export default function Home(props: { activeChangeText: boolean, colorScheme: string }) {
+interface MyComponentProps {
+  activeChangeText: boolean;
+  colorScheme: string;
+  language: string;
+}
+
+
+
+export default function Home(props: MyComponentProps) {
   const [btnActive, setbtnActive] = useState(30);
   const [colorIndex, setColorIndex] = useState(-1);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
   const [startTimer, setstartTimer] = useState(false);
   const [textArrayIndex, setTextArrayIndex] = useState(0);
+  const [textArray, settextArray] = useState(javaScriptTextArray);
   const [time, settime] = useState(30);
+  console.log("In index" + props.language);
+
+  useEffect(() => {
+    switch (props.language) {
+      case 'JavaScript':
+        settextArray(javaScriptTextArray);
+        setTextArrayIndex(0);
+        break;
+      case 'Java':
+        settextArray(javaTextArray);
+        setTextArrayIndex(0);
+        break;
+      case 'C++':
+        settextArray(cppTextArray);
+        setTextArrayIndex(0);
+        break;
+    }
+  }, [props.language]);
+
   const typableText = textArray[textArrayIndex]
 
   useEffect(() => {
@@ -26,6 +56,7 @@ export default function Home(props: { activeChangeText: boolean, colorScheme: st
     setColorIndex((colorIndex + i) % typableText.length);
     setCursorPosX(cursorPosX + x);
   }
+
   let canEnter = false;
 
   const characterToType = typableText.charAt(colorIndex);
@@ -77,8 +108,6 @@ export default function Home(props: { activeChangeText: boolean, colorScheme: st
     return typableText.split('').map((char, index) => (
       <span key={index} style={{ color: index + 1 <= colorIndex ? 'red' : '#1c82adc4' }}>
         {'~' === char ? '' : char}
-        {/* {index + 1} */}
-        {/* {colorIndex} */}
       </span>
     ));
   };
@@ -88,7 +117,6 @@ export default function Home(props: { activeChangeText: boolean, colorScheme: st
   const changeText = () => {
     if (textArrayIndex < textArray.length - 1) {
       setTextArrayIndex(textArrayIndex + 1);
-      console.log("textArrayIndex: " + textArrayIndex);
     } else {
       setTextArrayIndex(0);
     }

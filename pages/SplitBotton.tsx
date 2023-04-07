@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function SplitButton(props: { handleClick: any }) {
+export default function SplitButton(props: { handleClick: any, changeLanguage: any }) {
   const { classes, theme } = useStyles();
   const menuIconColor = theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 5 : 6];
 
@@ -35,13 +35,13 @@ export default function SplitButton(props: { handleClick: any }) {
           </ActionIcon>
         </Menu.Target>
         <Menu.Dropdown>
-          <Menu.Item icon={<IconBrandJavascript size="1rem" stroke={1.5} color={menuIconColor} />}>
+          <Menu.Item onClick={() => props.changeLanguage('JavaScript')} icon={<IconBrandJavascript size="1rem" stroke={1.5} color={menuIconColor} />}>
             JavaScript
           </Menu.Item>
-          <Menu.Item icon={<IconLetterJ size="1rem" stroke={1.5} color={menuIconColor} />}>
+          <Menu.Item onClick={() => props.changeLanguage('Java')} icon={<IconLetterJ size="1rem" stroke={1.5} color={menuIconColor} />}>
             Java
           </Menu.Item>
-          <Menu.Item icon={<IconBrandCpp size="1rem" stroke={1.5} color={menuIconColor} />}>
+          <Menu.Item onClick={() => props.changeLanguage('C++')} icon={<IconBrandCpp size="1rem" stroke={1.5} color={menuIconColor} />}>
             C/C++
           </Menu.Item>
         </Menu.Dropdown>

@@ -1,14 +1,19 @@
-const caesarCipher = (str, shift, decrypt = false) => {
-  const s = decrypt ? (26 - shift) % 26 : shift;
-  const n = s > 0 ? s : 26 + (s % 26);
-  return [...str]
-    .map((l, i) => {
-      const c = str.charCodeAt(i);
-      if (c >= 65 && c <= 90)
-        return String.fromCharCode(((c - 65 + n) % 26) + 65);
-      if (c >= 97 && c <= 122)
-        return String.fromCharCode(((c - 97 + n) % 26) + 97);
-      return l;
-    })
-    .join('');
-};
+public void givenMap_whenSortingByKeys_thenSortedMap() {
+    Integer[] sortedKeys = new Integer[] { 6, 12, 22, 55, 66, 77 };
+
+    List<Map.Entry<Integer, String>> entries 
+      = new ArrayList<>(map.entrySet());
+    Collections.sort(entries, new Comparator<Entry<Integer, String>>() {
+        @Override
+        public int compare(
+          Entry<Integer, String> o1, Entry<Integer, String> o2) {
+            return o1.getKey().compareTo(o2.getKey());
+        }
+    });
+    Map<Integer, String> sortedMap = new LinkedHashMap<>();
+    for (Map.Entry<Integer, String> entry : entries) {
+        sortedMap.put(entry.getKey(), entry.getValue());
+    }
+        
+    assertTrue(Arrays.equals(sortedMap.keySet().toArray(), sortedKeys));
+}

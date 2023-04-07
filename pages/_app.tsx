@@ -9,20 +9,24 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const [changeText, setchangeText] = useState(false);
+  const [language, setlanguage] = useState('JavaScript');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
     setColorScheme(nextColorScheme);
   };
 
-
   const handleClick = () => {
-    setchangeText(true);
+    setchangeText(!changeText);
   }
 
   useEffect(() => {
-    setchangeText(false);
-  }, [changeText])
+    console.log("in app" + language);
+  }, [language])
+
+  const changeLanguage = (newLanguage: string) => {
+    setlanguage(newLanguage);
+  }
 
   return (
     <>
@@ -40,10 +44,10 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           }}
         >
           <div style={{ display: 'flex', columnGap: '20px', justifyContent: 'center' }}>
-            <SplitButton handleClick={handleClick} />
+            <SplitButton handleClick={handleClick} changeLanguage={changeLanguage} />
             <SegmentedToggle toggleColorScheme={toggleColorScheme} />
           </div>
-          <Component {...pageProps} activeChangeText={changeText} colorScheme={colorScheme} />
+          <Component {...pageProps} activeChangeText={changeText} colorScheme={colorScheme} language={language} />
         </MantineProvider>
       </ColorSchemeProvider>
     </>
