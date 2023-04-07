@@ -12,11 +12,16 @@ export default function BlinkingCursor(props: ThisComponenetsProps) {
     setcolorScheme(props.colorScheme);
   }, [props.colorScheme]);
 
+  // useEffect(() => {
+  //   console.log(props.cursorposx.toString() + 'ch');
+  // }, [props.cursorposx]);
+
+
   return (
     <>
       <span style={{
         position: 'absolute',
-        marginLeft: props.cursorposx.toString() + 'ch',
+        marginLeft: props.cursorposx === undefined ? '0' : props.cursorposx.toString() + 'ch',
         borderLeft: '2px solid',
         borderColor: colorScheme === 'light' ? 'black' : 'white',
         height: '1.5em',
