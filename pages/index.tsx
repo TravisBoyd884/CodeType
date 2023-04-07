@@ -99,6 +99,7 @@ export default function Home(props: MyComponentProps) {
         event.preventDefault();
         break;
       default:
+        event.preventDefault();
         break;
     }
   }
