@@ -37,7 +37,6 @@ export default function Home(props: MyComponentProps) {
         break;
       case 'C++':
         settextArray(cppTextArray);
-        setTextArrayIndex(0);
         break;
     }
   }, [props.language]);
@@ -69,14 +68,14 @@ export default function Home(props: MyComponentProps) {
 
     switch (event.key) {
       case characterToType:
-        setColorAndCursor(1, 14.4);
+        setColorAndCursor(1, 1);
         setstartTimer(true);
       case " ":
         event.preventDefault();
         break;
       case "Tab":
         if (characterToType === ' ' && typableText.charAt(colorIndex + 1) == ' ')
-          setColorAndCursor(2, 28.8);
+          setColorAndCursor(2, 2);
         event.preventDefault();
         break;
       case "Enter":
@@ -88,12 +87,12 @@ export default function Home(props: MyComponentProps) {
         canEnter = false;
         break;
       case "Backspace":
-        setColorAndCursor(-1, -14.4);
+        setColorAndCursor(-1, -1);
         break;
       case "'":
         event.preventDefault();
         if (event.key === characterToType) {
-          setColorAndCursor(1, 14.4);
+          setColorAndCursor(1, 1);
         }
         break;
       case "/":
