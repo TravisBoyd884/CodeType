@@ -25,7 +25,7 @@ export default function BlinkingCursor(props: ThisComponenetsProps) {
     <>
       <span style={{
         position: 'absolute',
-        marginLeft: props.cursorposx,
+        marginLeft: props.cursorposx + 'ch',
         borderLeft: '2px solid',
         borderColor: colorScheme === 'light' ? 'black' : 'white',
         height: '1.5em',
