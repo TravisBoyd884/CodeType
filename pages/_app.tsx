@@ -7,7 +7,7 @@ import SplitButton from './SplitBotton';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const [changeText, setchangeText] = useState(false);
 
   const toggleColorScheme = (value?: ColorScheme) => {
@@ -43,7 +43,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
             <SplitButton handleClick={handleClick} />
             <SegmentedToggle toggleColorScheme={toggleColorScheme} />
           </div>
-          <Component {...pageProps} activeChangeText={changeText} />
+          <Component {...pageProps} activeChangeText={changeText} colorScheme={colorScheme} />
         </MantineProvider>
       </ColorSchemeProvider>
     </>

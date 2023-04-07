@@ -4,14 +4,13 @@ import BlinkingCursor from './BlinkingCursor'
 import { textArray } from '../misc/textArray'
 import CountDownTimer from './CountDownTimer'
 
-export default function Home(props: { activeChangeText: boolean }) {
+export default function Home(props: { activeChangeText: boolean, colorScheme: string }) {
   const [btnActive, setbtnActive] = useState(30);
   const [colorIndex, setColorIndex] = useState(-1);
   const [cursorPosX, setCursorPosX] = useState(0);
   const [sliceIndex, setsliceIndex] = useState(0);
   const [startTimer, setstartTimer] = useState(false);
   const [textArrayIndex, setTextArrayIndex] = useState(0);
-  // const [activateChangeText, setactivateChangeText] = useState(props.activeChangeText);
   const [time, settime] = useState(30);
   const typableText = textArray[textArrayIndex]
 
@@ -21,6 +20,7 @@ export default function Home(props: { activeChangeText: boolean }) {
       document.removeEventListener('keydown', handleKeyDown);
     };
   });
+
 
   const setColorAndCursor = (i: number, x: number) => {
     setColorIndex((colorIndex + i) % typableText.length);
@@ -136,8 +136,8 @@ export default function Home(props: { activeChangeText: boolean }) {
       <div className={styles.code}>
         <pre>
           <code>
-            <BlinkingCursor cursorposx={cursorPosX} />
-            <input autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
+            <BlinkingCursor colorScheme={props.colorScheme} cursorposx={cursorPosX} />
+            <input autoCapitalize='none' autoCorrect='off' autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
               position: 'absolute',
               height: '100%',
               width: '100%',

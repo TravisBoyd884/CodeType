@@ -2,21 +2,24 @@ import React, { useState, useEffect } from 'react';
 
 interface ThisComponenetsProps {
   cursorposx: number;
+  colorScheme: string;
 }
 
 export default function BlinkingCursor(props: ThisComponenetsProps) {
+  const [colorScheme, setcolorScheme] = useState('light');
+
+  useEffect(() => {
+    setcolorScheme(props.colorScheme);
+  }, [props.colorScheme]);
 
   return (
     <>
       <span style={{
         position: 'absolute',
         marginLeft: props.cursorposx,
-        // marginTop: '42px',
-        // top: 0,
-        // left: 0,
-        borderLeft: '2px solid #000',
+        borderLeft: '2px solid',
+        borderColor: colorScheme === 'light' ? 'black' : 'white',
         height: '1.5em',
-        // width: 0,
       }}></span>
     </>
   );
