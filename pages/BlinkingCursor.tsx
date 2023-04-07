@@ -16,7 +16,7 @@ export default function BlinkingCursor(props: ThisComponenetsProps) {
   //   console.log(props.cursorposx.toString() + 'ch');
   // }, [props.cursorposx]);
   let cursorPosition = '0ch';
-  if (props.cursorposx && cursorPosition != undefined && cursorPosition != null) {
+  if (props.cursorposx && props.cursorposx != undefined && props.cursorposx != null) {
     cursorPosition = props.cursorposx.toString() + 'ch';
   }
 
