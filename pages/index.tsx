@@ -1,18 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styles from '../styles/appstyles.module.scss'
-import BlinkingCursor from './BlinkingCursor'
-import { javaScriptTextArray } from '../misc/javaScriptText'
-import { javaTextArray } from '../misc/javaText'
-import { cppTextArray } from '../misc/cppText'
-import CountDownTimer from './CountDownTimer'
+import React, { useEffect, useState, useRef } from "react";
+import styles from "../styles/appstyles.module.scss";
+import BlinkingCursor from "./BlinkingCursor";
+import { javaScriptTextArray } from "../misc/javaScriptText";
+import { javaTextArray } from "../misc/javaText";
+import { cppTextArray } from "../misc/cppText";
+import CountDownTimer from "./CountDownTimer";
 
 interface MyComponentProps {
   activeChangeText: boolean;
   colorScheme: string;
   language: string;
 }
-
-
 
 export default function Home(props: MyComponentProps) {
   const [btnActive, setbtnActive] = useState(30);
@@ -27,42 +25,40 @@ export default function Home(props: MyComponentProps) {
 
   useEffect(() => {
     switch (props.language) {
-      case 'JavaScript':
+      case "JavaScript":
         settextArray(javaScriptTextArray);
         setTextArrayIndex(0);
         break;
-      case 'Java':
+      case "Java":
         settextArray(javaTextArray);
         setTextArrayIndex(0);
         break;
-      case 'C++':
+      case "C++":
         settextArray(cppTextArray);
         break;
     }
   }, [props.language]);
 
-  const typableText = textArray[textArrayIndex]
+  const typableText = textArray[textArrayIndex];
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   });
-
 
   const setColorAndCursor = (i: number, x: number) => {
     setColorIndex((colorIndex + i) % typableText.length);
     setCursorPosX(cursorPosX + x);
-  }
+  };
 
   let canEnter = false;
 
   const characterToType = typableText.charAt(colorIndex);
 
   const handleKeyDown = (event: any) => {
-
-    if (characterToType === '~') {
+    if (characterToType === "~") {
       canEnter = true;
     }
 
@@ -74,7 +70,10 @@ export default function Home(props: MyComponentProps) {
         event.preventDefault();
         break;
       case "Tab":
-        if (characterToType === ' ' && typableText.charAt(colorIndex + 1) == ' ')
+        if (
+          characterToType === " " &&
+          typableText.charAt(colorIndex + 1) == " "
+        )
           setColorAndCursor(2, 2);
         event.preventDefault();
         break;
@@ -102,17 +101,20 @@ export default function Home(props: MyComponentProps) {
         event.preventDefault();
         break;
     }
-  }
+  };
 
   const renderText = () => {
-    return typableText.split('').map((char, index) => (
-      <span key={index} style={{ color: index + 1 <= colorIndex ? 'red' : '#1c82adc4' }}>
-        {'~' === char ? '' : char}
+    return typableText.split("").map((char, index) => (
+      <span
+        key={index}
+        style={{ color: index + 1 <= colorIndex ? "red" : "#1c82adc4" }}
+      >
+        {"~" === char ? "" : char}
       </span>
     ));
   };
 
-  const textToRender = renderText().slice(sliceIndex)
+  const textToRender = renderText().slice(sliceIndex);
 
   const changeText = () => {
     if (textArrayIndex < textArray.length - 1) {
@@ -124,11 +126,11 @@ export default function Home(props: MyComponentProps) {
     setColorIndex(0);
     setCursorPosX(0);
     setstartTimer(false);
-  }
+  };
 
   useEffect(() => {
     changeText();
-  }, [props.activeChangeText])
+  }, [props.activeChangeText]);
 
   function CallBack() {
     changeText();
@@ -140,46 +142,84 @@ export default function Home(props: MyComponentProps) {
     numCharsTyped: colorIndex,
     handleCallBack: CallBack,
     finished: colorIndex === typableText.length - 3 ? true : false,
-  }
+  };
 
   const changeTime = (newtime: number) => {
     settime(newtime);
     setbtnActive(newtime);
     return null;
-  }
+  };
 
   const changeButtonStyles = (newtime: number) => {
-    return btnActive === newtime ? styles.activenavbtn : styles.navbtn
-  }
+    return btnActive === newtime ? styles.activenavbtn : styles.navbtn;
+  };
 
   return (
     <div>
       <div className={styles.nav}>
-        <button className={changeButtonStyles(15)} onClick={() => changeTime(15)}>15</button>
-        <button className={changeButtonStyles(30)} onClick={() => changeTime(30)}>30</button>
-        <button className={changeButtonStyles(60)} onClick={() => changeTime(60)}>60</button>
-        <button className={changeButtonStyles(120)} onClick={() => changeTime(120)}>120</button>
+        <button
+          className={changeButtonStyles(15)}
+          onClick={() => changeTime(15)}
+        >
+          15
+        </button>
+        <button
+          className={changeButtonStyles(30)}
+          onClick={() => changeTime(30)}
+        >
+          30
+        </button>
+        <button
+          className={changeButtonStyles(60)}
+          onClick={() => changeTime(60)}
+        >
+          60
+        </button>
+        <button
+          className={changeButtonStyles(120)}
+          onClick={() => changeTime(120)}
+        >
+          120
+        </button>
+        <button
+          className={changeButtonStyles(120000)}
+          onClick={() => changeTime(120000)}
+        >
+          Infinite
+        </button>
       </div>
       <CountDownTimer {...timerProps} />
       <div className={styles.code}>
         <pre>
           <code>
-            <BlinkingCursor colorScheme={props.colorScheme} cursorposx={cursorPosX} />
-            <input autoCapitalize='none' autoCorrect='off' autoFocus onFocus={(event) => { event.preventDefault() }} value={''} style={{
-              position: 'absolute',
-              height: '100%',
-              width: '100%',
-              background: 'transparent',
-              color: 'transparent',
-              border: 'none',
-              outline: 'none',
-              WebkitUserSelect: 'none',
-              caretColor: 'transparent'
-            }} />
+            <BlinkingCursor
+              colorScheme={props.colorScheme}
+              cursorposx={cursorPosX}
+            />
+            <input
+              autoCapitalize="none"
+              autoCorrect="off"
+              autoFocus
+              onFocus={(event) => {
+                event.preventDefault();
+              }}
+              value={""}
+              style={{
+                position: "absolute",
+                height: "100%",
+                width: "100%",
+                background: "transparent",
+                color: "transparent",
+                border: "none",
+                outline: "none",
+                WebkitUserSelect: "none",
+                caretColor: "transparent",
+              }}
+            />
             {textToRender}
           </code>
-        </pre >
+        </pre>
       </div>
     </div>
-  )
+  );
 }

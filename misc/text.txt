@@ -1,19 +1,23 @@
-public void givenMap_whenSortingByKeys_thenSortedMap() {
-    Integer[] sortedKeys = new Integer[] { 6, 12, 22, 55, 66, 77 };
-
-    List<Map.Entry<Integer, String>> entries 
-      = new ArrayList<>(map.entrySet());
-    Collections.sort(entries, new Comparator<Entry<Integer, String>>() {
-        @Override
-        public int compare(
-          Entry<Integer, String> o1, Entry<Integer, String> o2) {
-            return o1.getKey().compareTo(o2.getKey());
-        }
-    });
-    Map<Integer, String> sortedMap = new LinkedHashMap<>();
-    for (Map.Entry<Integer, String> entry : entries) {
-        sortedMap.put(entry.getKey(), entry.getValue());
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(root==nullptr) return true;
+        return abs(height(root->left)-height(root->right))<=1 && isBalanced(root->left) && isBalanced(root->right);
     }
-        
-    assertTrue(Arrays.equals(sortedMap.keySet().toArray(), sortedKeys));
-}
+private:
+    int height(TreeNode*root){
+        if(root==nullptr) return 0;
+        return max(height(root->left),height(root->right))+1;
+    }
+};
